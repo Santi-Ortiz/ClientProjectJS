@@ -8,39 +8,68 @@ export default function Login() {
 
     const loginHandle = () => {
         fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-            method : 'POST',
-            headers : {
-                'Authorization' : `Basic ${btoa(`${email}:${password}`)}`
-
+            method: 'POST',
+            headers: {
+                'Authorization': `Basic ${btoa(`${email}:${password}`)}`
             }
         }).then(res => res.json())
-        .then(json => {
-            console.log(json)
-
-        }) 
+            .then(json => {
+                localStorage.setItem('jwt', json.token);
+                navigate('/users')
+            })
+            .catch(e => console.log(e))
     }
 
-    return(
+    return (
         <>
-        <div style = {{
-            display : 'flex',
-            flexDirection : 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
-            <input type="email" 
-                value={email} 
-                onChange={e => { setEmail(e.target.value)}} 
-            />
-            <input type="password" 
-                value={password}   
-                onChange={e => { setPassword(e.target.value)}}
-            />
-            <button
-                onClick={loginHandle}
-            >Ingresar</button>
-        </div>
-        
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#778899',
+                padding: '20px',
+            }}>
+                <h1 style={{
+                    margin: '60px',
+                    fontWeight: 'bold'
+
+                }}>Login</h1>
+
+                
+                <div>
+                    <label htmlFor="correo" style={{
+                        margin: '20px',
+                        fontSize: '20px',
+                        fontWeight: 'bold'
+                    }} >Email: </label>
+                    <input type="email"
+                        value={email}
+                        onChange={e => { setEmail(e.target.value) }}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="contraseña" style={{
+                        margin: '5px',
+                        fontSize: '20px',
+                        fontWeight: 'bold'
+                    }}>
+                        Password:
+                    </label>
+                    <input type="password" style={{ margin: '30px' }}
+                        value={password}
+                        onChange={e => { setPassword(e.target.value) }}
+                    />
+                </div>
+
+                <button
+                    onClick={loginHandle}
+                >Ingresar</button>
+
+
+            </div>
+
 
         </>
     )
