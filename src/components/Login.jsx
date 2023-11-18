@@ -15,7 +15,7 @@ export default function Login() {
         }).then(res => res.json())
             .then(json => {
                 localStorage.setItem('jwt', json.token);
-                navigate('/users')
+                navigate('/nasa')
             })
             .catch(e => console.log(e))
     }

@@ -3,10 +3,19 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { useNavigate } from 'react-router-dom'
+import io from 'socket.io-client' 
+import { useEffect } from 'react'
 
-function App() {
+const socket = io.connect("http://localhost:3000");
+
+function App(socket) {
   const [count, setCount] = useState(0)
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(socket)
+  }, [])
+
   return (
     <>
       <div>
